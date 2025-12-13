@@ -1,19 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import { NavLink } from '@/components/NavLink';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  LayoutDashboard, 
-  FileCheck, 
-  User, 
-  LogOut,
-  Shield,
-  GraduationCap
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { LayoutDashboard, FileCheck, User, LogOut, Shield, GraduationCap } from 'lucide-react';
 
 export function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -33,51 +25,38 @@ export function Sidebar() {
   const links = user?.role === 'hod' ? hodLinks : facultyLinks;
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-sidebar border-r-2 border-sidebar-border flex flex-col">
-      <div className="p-6 border-b-2 border-sidebar-border">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-sidebar-primary flex items-center justify-center">
-            <Shield className="w-6 h-6 text-sidebar-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-sidebar-foreground tracking-tight">EduVault</h1>
-            <p className="text-xs text-sidebar-foreground/60 font-mono">CSE Department</p>
+    <aside className="sidebar">
+      <div className="sidebar-header">
+        <div className="sidebar-logo">
+          <div className="sidebar-logo-icon"><Shield /></div>
+          <div className="sidebar-logo-text">
+            <h1>EduVault</h1>
+            <p>CSE Department</p>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
+      <nav className="sidebar-nav">
         {links.map((link) => (
-          <NavLink
-            key={link.to}
-            to={link.to}
-            className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 border-2 border-transparent"
-            activeClassName="bg-sidebar-accent text-sidebar-primary border-sidebar-primary font-medium"
-          >
-            <link.icon className="w-5 h-5" />
+          <Link key={link.to} to={link.to} className={`sidebar-nav-link ${location.pathname === link.to ? 'active' : ''}`}>
+            <link.icon />
             <span>{link.label}</span>
-          </NavLink>
+          </Link>
         ))}
       </nav>
 
-      <div className="p-4 border-t-2 border-sidebar-border">
-        <div className="flex items-center gap-3 mb-4 px-2">
-          <div className="w-10 h-10 bg-sidebar-accent flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-sidebar-primary" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-sidebar-foreground truncate">{user?.name}</p>
-            <p className="text-xs text-sidebar-foreground/60 capitalize">{user?.role}</p>
+      <div className="sidebar-footer">
+        <div className="sidebar-user">
+          <div className="sidebar-user-avatar"><GraduationCap /></div>
+          <div className="sidebar-user-info">
+            <div className="sidebar-user-name">{user?.name}</div>
+            <div className="sidebar-user-role">{user?.role}</div>
           </div>
         </div>
-        <Button
-          variant="outline"
-          className="w-full justify-start gap-2 border-2 border-sidebar-border text-sidebar-foreground hover:bg-destructive hover:text-destructive-foreground hover:border-destructive"
-          onClick={handleLogout}
-        >
-          <LogOut className="w-4 h-4" />
+        <button className="sidebar-logout-btn" onClick={handleLogout}>
+          <LogOut />
           Sign Out
-        </Button>
+        </button>
       </div>
     </aside>
   );

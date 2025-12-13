@@ -11,21 +11,14 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ children, requiredRole }: DashboardLayoutProps) {
   const { isAuthenticated, user } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (requiredRole && user?.role !== requiredRole) {
-    return <Navigate to={`/${user?.role}/dashboard`} replace />;
-  }
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (requiredRole && user?.role !== requiredRole) return <Navigate to={`/${user?.role}/dashboard`} replace />;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="dashboard-layout">
       <Sidebar />
-      <main className="ml-64 min-h-screen">
-        <div className="p-8">
-          {children}
-        </div>
+      <main className="dashboard-main">
+        <div className="dashboard-content">{children}</div>
       </main>
     </div>
   );
