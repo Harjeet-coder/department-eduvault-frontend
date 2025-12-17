@@ -54,8 +54,7 @@ export default function FacultyProfile() {
         <div className="student-list-card">
           <div className="student-list-header">
             <div className="student-list-title-section"><div className="student-list-icon"><Users /></div><div><h2 className="student-list-title">Assigned Students</h2><p className="student-list-count">{students.length} students total</p></div></div>
-            <button className="btn btn-primary"><Plus /> Add Student</button>
-          </div>
+                        </div>
 
           <div className="filters-row">
             <div className="search-input-wrapper"><Search /><input type="text" placeholder="Search by name or register number..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="input input-with-icon" /></div>
@@ -64,7 +63,7 @@ export default function FacultyProfile() {
 
           <div className="table-container">
             <table className="table">
-              <thead><tr><th>Register No.</th><th>Name</th><th>Email</th><th>Section</th><th>Status</th><th style={{textAlign:'right'}}>Actions</th></tr></thead>
+              <thead><tr><th>Register No.</th><th>Name</th><th>Email</th><th>Section</th><th style={{textAlign:'right'}}>Actions</th></tr></thead>
               <tbody>
                 {filteredStudents.map((student) => (
                   <tr key={student.id}>
@@ -72,8 +71,7 @@ export default function FacultyProfile() {
                     <td>{student.name}</td>
                     <td style={{color:'var(--muted-foreground)'}}>{student.email}</td>
                     <td><span className="badge badge-outline">Section {student.section}</span></td>
-                    <td><span className={`badge ${student.isPresent ? 'badge-success' : 'badge-destructive'}`}>{student.isPresent ? 'Present' : 'Absent'}</span></td>
-                    <td style={{textAlign:'right'}}><button className="btn btn-ghost btn-icon"><Pencil style={{width:'1rem',height:'1rem'}} /></button><button className="btn btn-ghost btn-icon" onClick={() => handleDeleteStudent(student.id)} style={{color:'var(--destructive)'}}><Trash2 style={{width:'1rem',height:'1rem'}} /></button></td>
+                    <td style={{textAlign:'right'}}><button className="btn btn-ghost btn-icon"></button><button className="btn btn-ghost btn-icon" onClick={() => handleDeleteStudent(student.id)} style={{color:'var(--destructive)'}}><Trash2 style={{width:'1rem',height:'1rem'}} /></button></td>
                   </tr>
                 ))}
               </tbody>
