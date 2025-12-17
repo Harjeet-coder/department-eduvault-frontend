@@ -519,7 +519,7 @@
 
 .section-detail-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   text-align: center;
   margin-top: 1rem;
@@ -539,6 +539,10 @@
   background-color: var(--success-light);
 }
 
+.section-detail-stat.pending {
+  background-color: var(--warning-light);
+}
+
 .section-detail-stat.not-legit {
   background-color: var(--destructive-light);
 }
@@ -551,6 +555,10 @@
 
 .section-detail-stat.legit .section-detail-stat-value {
   color: var(--success);
+}
+
+.section-detail-stat.pending .section-detail-stat-value {
+  color: var(--warning);
 }
 
 .section-detail-stat.not-legit .section-detail-stat-value {
@@ -581,4 +589,29 @@
   font-family: var(--font-mono);
   font-weight: 700;
   color: var(--primary);
+}
+
+/* Activity item types for certificates */
+.activity-item-icon.verified {
+  background-color: var(--success-light);
+}
+
+.activity-item-icon.verified svg {
+  color: var(--success);
+}
+
+.activity-item-icon.uploaded {
+  background-color: var(--primary-light);
+}
+
+.activity-item-icon.uploaded svg {
+  color: var(--primary);
+}
+
+.activity-item-icon.rejected {
+  background-color: var(--destructive-light);
+}
+
+.activity-item-icon.rejected svg {
+  color: var(--destructive);
 }
